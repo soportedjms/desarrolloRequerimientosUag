@@ -15,7 +15,7 @@ class Modelousuario extends CI_Model {
         $query = $this->db->query("SELECT u.idUsuario, rol.idRol,u.nombre,u.usuario,
                 rol.descripcion descRol, u.correo, u.esAdministrador
                 FROM usuario u
-                inner join usuario_rol on u.idUsuario=usuario_Rol.idUsuario
+                inner join usuario_rol on u.idUsuario=usuario_rol.idUsuario
                 INNER JOIN rol ON usuario_rol.idRol=rol.idRol
                 where u.usuario=? and u.password=? and usuario_rol.idRol=? LIMIT 1", array($usuario, $password, $rol));
         if ($query->num_rows() > 0) {
