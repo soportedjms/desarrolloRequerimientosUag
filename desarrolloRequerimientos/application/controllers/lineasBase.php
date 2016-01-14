@@ -39,19 +39,19 @@ class LineasBase extends CI_Controller {
         $data['descripcion'] = $_POST['descripcion'];
         $data['estatus'] = $_POST['estatus'];
         //Validar si existen requisitos para ser agregados, requisitos terminados activos
-        $this->load->model('modeloRequerimiento');
-        $requerimientos = $this->modeloRequerimiento->get_requerimientosActivosNoAsignados($proyecto);
+        $this->load->model('Modelorequerimiento');
+        $requerimientos = $this->Modelorequerimiento->get_requerimientosActivosNoAsignados($proyecto);
         if (empty($requerimientos)) {
             $error_msg = "No existen requerimientos para agregar a la nueva línea base.";
             $data = array("mensaje" => $error_msg, "datos" => $datos);
             $this->load->view('lineasBase/nuevo', $data);
         } else {
             //Traer definiciones a ser agregadas
-            $this->load->model('modeloDefinicion');
-            $definiciones = $this->modeloDefinicion->get_definicionProyectoActivos($proyecto);
+            $this->load->model('Modelodefinicion');
+            $definiciones = $this->Modelodefinicion->get_definicionProyectoActivos($proyecto);
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloLineaBase');
-            if (empty($this->modeloLineaBase->generarLineaBase($data, $requerimientos, $definiciones))) {
+            $this->load->model('Modelolineabase');
+            if (empty($this->Modelolineabase->generarLineaBase($data, $requerimientos, $definiciones))) {
                 $error_msg = "No se pudo generar la línea base.";
                 $data = array("mensaje" => $error_msg, "datos" => $datos);
                 $this->load->view('lineasBase/nuevo', $data);
@@ -62,8 +62,8 @@ class LineasBase extends CI_Controller {
     }
 
     public function editar($id, $proyecto) {
-        $this->load->model('modeloLineaBase');
-        $lineaBase = $this->modeloLineaBase->get_LineasBase($proyecto, $id);
+        $this->load->model('Modelolineabase');
+        $lineaBase = $this->Modelolineabase->get_LineasBase($proyecto, $id);
 
         $data = array("datos" => $lineaBase);
         $this->load->view('lineasBase/editar', $data);
@@ -76,8 +76,8 @@ class LineasBase extends CI_Controller {
         $datos = array("idProyecto" => $_POST['idProyecto'], "nombre" => $_POST['nombre'], "descripcion" => $_POST['descripcion'],
             "estatus" => $_POST['estatus'], "idLineaBase" => $_POST['idLineaBase'], "estaAprobada" => $estaAprobada);
         //Editar
-        $this->load->model('modeloLineaBase');
-        if (empty($this->modeloLineaBase->editarLineaBase($datos))) {
+        $this->load->model('Modelolineabase');
+        if (empty($this->Modelolineabase->editarLineaBase($datos))) {
             $error_msg = "No se pudo actualizar la línea base.";
             $data = array("mensaje" => $error_msg, "datos" => $datos);
             $this->load->view('lineasBase/editar', $data);
@@ -87,12 +87,12 @@ class LineasBase extends CI_Controller {
     }
 
      public function detalle($id, $proyecto) {
-        $this->load->model('modeloLineaBase');
-        $lineaBase = $this->modeloLineaBase->get_LineasBase($proyecto, $id);
-        $this->load->model('modeloDefinicion');
-        $definiciones=$this->modeloDefinicion->get_definicionesLineaBase($proyecto,$id);
-        $this->load->model('modeloRequerimiento');
-        $requerimientos=$this->modeloRequerimiento->get_requerimientosLineaBase($proyecto, $id);
+        $this->load->model('Modelolineabase');
+        $lineaBase = $this->Modelolineabase->get_LineasBase($proyecto, $id);
+        $this->load->model('Modelodefinicion');
+        $definiciones=$this->Modelodefinicion->get_definicionesLineaBase($proyecto,$id);
+        $this->load->model('Modelorequerimiento');
+        $requerimientos=$this->Modelorequerimiento->get_requerimientosLineaBase($proyecto, $id);
         $data = array("datos" => $lineaBase,"definiciones"=>$definiciones,"requerimientos"=>$requerimientos);
         $this->load->view('lineasBase/detalle', $data);
     }
@@ -100,8 +100,8 @@ class LineasBase extends CI_Controller {
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosLineasBase($proyecto) {
         $consulta = array("idProyecto" => $proyecto);
-        $this->load->model('modeloLineaBase');
-        $lineasBase = $this->modeloLineaBase->get_LineasBase($proyecto, '');
+        $this->load->model('Modelolineabase');
+        $lineasBase = $this->Modelolineabase->get_LineasBase($proyecto, '');
         $data = array("lineasBase" => $lineasBase, "consulta" => $consulta);
         $this->load->view('lineasBase/lista', $data);
     }

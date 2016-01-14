@@ -34,8 +34,8 @@ class CasosPruebas extends CI_Controller {
         $data['idEstatus'] = $_POST['estatus'];
         $data['idProyecto'] = $_POST['idProyecto'];
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloCasoPrueba');
-        if (empty($this->modeloCasoPrueba->insertarCasoPrueba($data))) {
+        $this->load->model('Modelocasoprueba');
+        if (empty($this->Modelocasoprueba->insertarCasoPrueba($data))) {
             $error_msg = "No se pudo insertar el registro.";
             $data = array("mensaje" => $error_msg);
             $this->load->view('casosPruebas/nuevo', $data);
@@ -45,8 +45,8 @@ class CasosPruebas extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloCasoPrueba');
-        $casoPrueba = $this->modeloCasoPrueba->get_casoPrueba($id);
+        $this->load->model('Modelocasoprueba');
+        $casoPrueba = $this->Modelocasoprueba->get_casoPrueba($id);
         $data = array("casoPrueba" => $casoPrueba);
         $this->load->view('casosPruebas/editar', $data);
     }
@@ -59,8 +59,8 @@ class CasosPruebas extends CI_Controller {
             'idEstatus' => $_POST['estatus'],'idProyecto' => $_POST['idProyecto']);
         $data = array("casoPrueba" => $casoPrueba);
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloCasoPrueba');
-        if (empty($this->modeloCasoPrueba->editarCasoPrueba($data))) {
+        $this->load->model('Modelocasoprueba');
+        if (empty($this->Modelocasoprueba->editarCasoPrueba($data))) {
             $error_msg = "No se pudo editar el registro.";
             $data = array("mensaje" => $error_msg, "casoPrueba" => $casoPrueba);
             $this->load->view('casosPruebas/editar', $data);
@@ -71,8 +71,8 @@ class CasosPruebas extends CI_Controller {
 
     public function eliminarCasoPrueba() {
         $casoPrueba = $this->input->post('idcasoprueba');
-        $this->load->model('modeloCasoPrueba');
-        $val = $this->modeloCasoPrueba->eliminarCasoPrueba($casoPrueba);
+        $this->load->model('Modelocasoprueba');
+        $val = $this->Modelocasoprueba->eliminarCasoPrueba($casoPrueba);
         if (empty($val))
             echo 'no';
         else
@@ -81,8 +81,8 @@ class CasosPruebas extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosCasosPruebas() {
-        $this->load->model('modeloCasoPrueba');
-        $casosPruebas = $this->modeloCasoPrueba->get_casosPruebas();
+        $this->load->model('Modelocasoprueba');
+        $casosPruebas = $this->Modelocasoprueba->get_casosPruebas();
         $data['casosPruebas'] = $casosPruebas;
         $this->load->view('casosPruebas/lista', $data);
     }

@@ -38,8 +38,8 @@ class Usuarios extends CI_Controller {
             $this->load->view('usuarios/nuevo', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloUsuario');
-            if (empty($this->modeloUsuario->insertarUsuario($data))) {
+            $this->load->model('Modelousuario');
+            if (empty($this->Modelousuario->insertarUsuario($data))) {
                 $error_msg = "No se pudo insertar el registro.";
                 $data = array("mensaje" => $error_msg);
                 $this->load->view('usuarios/nuevo', $data);
@@ -50,9 +50,9 @@ class Usuarios extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloUsuario');
-        $user = $this->modeloUsuario->get_usuario($id);
-        $roles = $this->modeloUsuario->get_usuario_roles($id);
+        $this->load->model('Modelousuario');
+        $user = $this->Modelousuario->get_usuario($id);
+        $roles = $this->Modelousuario->get_usuario_roles($id);
         $array = array();
         if (!empty($roles)) {
             foreach ($roles as $row) {
@@ -78,8 +78,8 @@ class Usuarios extends CI_Controller {
             $this->load->view('usuarios/editar', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloUsuario');
-            if (empty($this->modeloUsuario->editarUsuario($data))) {
+            $this->load->model('Modelousuario');
+            if (empty($this->Modelousuario->editarUsuario($data))) {
                 $error_msg = "No se pudo editar el registro.";
                 $data = array("mensaje" => $error_msg, "user" => $user,"roles"=>$roles);
                 $this->load->view('usuarios/editar', $data);
@@ -91,8 +91,8 @@ class Usuarios extends CI_Controller {
 
     public function eliminarUsuario() {
         $usuario = $this->input->post('idusuario');
-        $this->load->model('modeloUsuario');
-        $val=$this->modeloUsuario->eliminarUsuario($usuario);
+        $this->load->model('Modelousuario');
+        $val=$this->Modelousuario->eliminarUsuario($usuario);
         if (empty($val))
             echo 'no';
         else
@@ -101,16 +101,16 @@ class Usuarios extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosUsuarios() {
-        $this->load->model('modeloUsuario');
-        $users = $this->modeloUsuario->get_usuarios();
+        $this->load->model('Modelousuario');
+        $users = $this->Modelousuario->get_usuarios();
         $data['usuarios'] = $users;
         $this->load->view('usuarios/lista', $data);
     }
 
     function validaGuardar($usuario, $id) {
         //Validar que el usuario no exista
-        $this->load->model('modeloUsuario');
-        $user = $this->modeloUsuario->validaUsuario($usuario, $id);
+        $this->load->model('Modelousuario');
+        $user = $this->Modelousuario->validaUsuario($usuario, $id);
 
         $error_msg = "";
         if (!empty($user)) {

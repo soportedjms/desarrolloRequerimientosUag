@@ -40,8 +40,8 @@ class Estatus extends CI_Controller {
         $data["requisitos"] = $requisitos;
         $data["actividades"] = $actividades;
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloEstatus');
-        if (empty($this->modeloEstatus->insertarEstatus($data))) {
+        $this->load->model('Modeloestatus');
+        if (empty($this->Modeloestatus->insertarEstatus($data))) {
             $error_msg = "No se pudo insertar el registro.";
             $data = array("mensaje" => $error_msg);
             $this->load->view('estatus/nuevo', $data);
@@ -51,8 +51,8 @@ class Estatus extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloEstatus');
-        $estatus = $this->modeloEstatus->get_estatus_part($id);
+        $this->load->model('Modeloestatus');
+        $estatus = $this->Modeloestatus->get_estatus_part($id);
         $data = array("estatus" => $estatus);
         $this->load->view('estatus/editar', $data);
     }
@@ -71,8 +71,8 @@ class Estatus extends CI_Controller {
             "todos" => $todos, "requisitos" => $requisitos, "actividades" => $actividades);
         $data = array("estatus" => $estatus);
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloEstatus');
-        if (empty($this->modeloEstatus->editarEstatus($data))) {
+        $this->load->model('Modeloestatus');
+        if (empty($this->Modeloestatus->editarEstatus($data))) {
             $error_msg = "No se pudo editar el registro.";
             $data = array("mensaje" => $error_msg, "estatus" => $estatus);
             $this->load->view('estatus/editar', $data);
@@ -83,8 +83,8 @@ class Estatus extends CI_Controller {
 
     public function eliminarEstatus() {
         $estatus = $this->input->post('idestatus');
-        $this->load->model('modeloEstatus');
-        $val = $this->modeloEstatus->eliminarEstatus($estatus);
+        $this->load->model('Modeloestatus');
+        $val = $this->Modeloestatus->eliminarEstatus($estatus);
         if (empty($val))
             echo 'no';
         else
@@ -98,8 +98,8 @@ class Estatus extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosEstatus() {
-        $this->load->model('modeloEstatus');
-        $estatus = $this->modeloEstatus->get_estatus();
+        $this->load->model('Modeloestatus');
+        $estatus = $this->Modeloestatus->get_estatus();
         $data['estatus'] = $estatus;
         $this->load->view('estatus/lista', $data);
     }

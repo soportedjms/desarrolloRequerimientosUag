@@ -30,8 +30,8 @@ class Opciones extends CI_Controller {
         $data['descripcion'] = $_POST['descripcion'];
         $data['nombreControlador'] = $_POST['nombreControlador'];
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloOpcion');
-        if (empty($this->modeloOpcion->insertarOpcion($data))) {
+        $this->load->model('Modeloopcion');
+        if (empty($this->Modeloopcion->insertarOpcion($data))) {
             $error_msg = "No se pudo insertar el registro.";
             $data = array("mensaje" => $error_msg);
             $this->load->view('opciones/nuevo', $data);
@@ -41,8 +41,8 @@ class Opciones extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloOpcion');
-        $opcion = $this->modeloOpcion->get_opcion($id);
+        $this->load->model('Modeloopcion');
+        $opcion = $this->Modeloopcion->get_opcion($id);
         $data = array("opcion" => $opcion);
         $this->load->view('opciones/editar', $data);
     }
@@ -53,8 +53,8 @@ class Opciones extends CI_Controller {
             'descripcion' => $_POST['descripcion'],'nombreControlador' => $_POST['nombreControlador'] );
         $data = array("opcion" => $opcion);
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloOpcion');
-        if (empty($this->modeloOpcion->editarOpcion($data))) {
+        $this->load->model('Modeloopcion');
+        if (empty($this->Modeloopcion->editarOpcion($data))) {
             $error_msg = "No se pudo editar el registro.";
             $data = array("mensaje" => $error_msg, "opcion" => $opcion);
             $this->load->view('opciones/editar', $data);
@@ -65,8 +65,8 @@ class Opciones extends CI_Controller {
 
     public function eliminarOpcion() {
         $opcion = $this->input->post('idopcion');
-        $this->load->model('modeloOpcion');
-        $val = $this->modeloOpcion->eliminarOpcion($opcion);
+        $this->load->model('Modeloopcion');
+        $val = $this->Modeloopcion->eliminarOpcion($opcion);
         if (empty($val))
             echo 'no';
         else
@@ -75,8 +75,8 @@ class Opciones extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosOpciones() {
-        $this->load->model('modeloOpcion');
-        $opciones = $this->modeloOpcion->get_opciones();
+        $this->load->model('Modeloopcion');
+        $opciones = $this->Modeloopcion->get_opciones();
         $data['opciones'] = $opciones;
         $this->load->view('opciones/lista', $data);
     }

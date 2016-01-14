@@ -2,8 +2,8 @@
 
 function llenaCombo() {
     $CI = get_instance();
-    $CI->load->model('modeloRol');
-    $roles = $CI->modeloRol->traerRoles();
+    $CI->load->model('Modelorol');
+    $roles = $CI->Modelorol->traerRoles();
 
     $options = array();
     foreach ($roles as $row) {//$key => $value)
@@ -16,8 +16,8 @@ function llenaCombo() {
 function llenaComboEstatus($idEstatus,$filtro) {
     
     $CI = get_instance();
-    $CI->load->model('modeloEstatus');
-    $estatus = $CI->modeloEstatus->get_estatusCombo($filtro);
+    $CI->load->model('Modeloestatus');
+    $estatus = $CI->Modeloestatus->get_estatusCombo($filtro);
     $options = array();
     foreach ($estatus as $row) {//$key => $value)
         $options += array($row["idEstatus"] => $row["descripcion"]);
@@ -29,8 +29,8 @@ function llenaComboEstatus($idEstatus,$filtro) {
 function llenaComboEstatusConsultaRequisitos($idEstatus,$filtro) {
     
     $CI = get_instance();
-    $CI->load->model('modeloEstatus');
-    $estatus = $CI->modeloEstatus->get_estatusCombo($filtro);
+    $CI->load->model('Modeloestatus');
+    $estatus = $CI->Modeloestatus->get_estatusCombo($filtro);
     $options = array(""=>"Todos");
     foreach ($estatus as $row) {//$key => $value)
         $options += array($row["idEstatus"] => $row["descripcion"]);
@@ -41,8 +41,8 @@ function llenaComboEstatusConsultaRequisitos($idEstatus,$filtro) {
 
 function llenaComboGlosario($idGlosario) {
     $CI = get_instance();
-    $CI->load->model('modeloGlosario');
-    $glosarios = $CI->modeloGlosario->get_glosarioCombo();
+    $CI->load->model('Modeloglosario');
+    $glosarios = $CI->Modeloglosario->get_glosarioCombo();
     $options = array();
     foreach ($glosarios as $row) {//$key => $value)
         $options += array($row["idGlosario"] => $row["nombre"]);
@@ -53,8 +53,8 @@ function llenaComboGlosario($idGlosario) {
 
 function llenaComboProyectos($idProyecto) {
     $CI = get_instance();
-    $CI->load->model('modeloProyecto');
-    $proyectos = $CI->modeloProyecto->get_proyectos_combo();
+    $CI->load->model('Modeloproyecto');
+    $proyectos = $CI->Modeloproyecto->get_proyectos_combo();
     $options = array();
     foreach ($proyectos as $row) {//$key => $value)
         $options += array($row["idProyecto"] => $row["nombre"]);
@@ -65,8 +65,8 @@ function llenaComboProyectos($idProyecto) {
 
 function llenaComboTipoRequerimiento($idTipo, $todos) {
     $CI = get_instance();
-    $CI->load->model('modeloTipoRequerimiento');
-    $tipos = $CI->modeloTipoRequerimiento->get_tipos_requerimientos();
+    $CI->load->model('Modelotiporequerimiento');
+    $tipos = $CI->Modelotiporequerimiento->get_tipos_requerimientos();
     $options = array();
     if ($todos==1)
         $options += array(''=>"Todos");
@@ -79,8 +79,8 @@ function llenaComboTipoRequerimiento($idTipo, $todos) {
 
 function llenaComboPrioridad($idPrioridad, $todos) {
     $CI = get_instance();
-    $CI->load->model('modeloPrioridad');
-    $prioridad = $CI->modeloPrioridad->get_prioridades();
+    $CI->load->model('Modeloprioridad');
+    $prioridad = $CI->Modeloprioridad->get_prioridades();
     $options = array();
     if ($todos==1)
         $options += array(''=>"Todos");     
@@ -93,8 +93,8 @@ function llenaComboPrioridad($idPrioridad, $todos) {
 
 function llenaComboCasoPrueba($idCasoPrueba) {
     $CI = get_instance();
-    $CI->load->model('modeloCasoPrueba');
-    $cp = $CI->modeloCasoPrueba->get_casosPruebas();
+    $CI->load->model('Modelocasoprueba');
+    $cp = $CI->Modelocasoprueba->get_casosPruebas();
     $options = array();
     foreach ($cp as $row) {//$key => $value)
         $options += array($row["idCasoPrueba"] => $row["descripcion"]);
@@ -105,8 +105,8 @@ function llenaComboCasoPrueba($idCasoPrueba) {
 
 function llenaModulos($idModulo) {
     $CI = get_instance();
-    $CI->load->model('modeloModulo');
-    $modulos = $CI->modeloModulo->get_modulos();
+    $CI->load->model('Modelomodulo');
+    $modulos = $CI->Modelomodulo->get_modulos();
 
     $options = array();
     foreach ($modulos as $row) {//$key => $value)
@@ -118,8 +118,8 @@ function llenaModulos($idModulo) {
 
 function llenaRolesEditar($rol) {
     $CI = get_instance();
-    $CI->load->model('modeloRol');
-    $roles = $CI->modeloRol->traerRoles();
+    $CI->load->model('Modelorol');
+    $roles = $CI->Modelorol->traerRoles();
 
     $options = array();
     foreach ($roles as $row) {//$key => $value)
@@ -166,9 +166,9 @@ function menu() {
     $CI = get_instance();
     //obtener el rol del usuario logeado
     $session_rol = $CI->session->userdata('idRol');
-    $CI->load->model('modeloRolOpcion');
+    $CI->load->model('Modelorolopcion');
     //obtener las opciones a las que tiene permiso el rol
-    $rolOpciones = $CI->modeloRolOpcion->get_rol_opciones_permiso($session_rol);
+    $rolOpciones = $CI->Modelorolopcion->get_rol_opciones_permiso($session_rol);
     if (!empty($rolOpciones)) {
         $newMenu = '';
         $modulo = 0;

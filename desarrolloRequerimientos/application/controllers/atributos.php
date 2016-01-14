@@ -30,8 +30,8 @@ class Atributos extends CI_Controller {
         $data['valor'] = $_POST['valor'];
 
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloAtributo');
-        $id = $this->modeloAtributo->insertarAtributo($data);
+        $this->load->model('Modeloatributo');
+        $id = $this->Modeloatributo->insertarAtributo($data);
 
         if (isset($id)) {
             $this->index();
@@ -43,8 +43,8 @@ class Atributos extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloAtributo');
-        $atributos = $this->modeloAtributo->get_atributo($id);
+        $this->load->model('Modeloatributo');
+        $atributos = $this->Modeloatributo->get_atributo($id);
         $data = array("atributo" => $atributos);
         $this->load->view('atributos/editar', $data);
     }
@@ -55,8 +55,8 @@ class Atributos extends CI_Controller {
         $data = array("atributo" => $atributo);
 
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloAtributo');
-        $id = $this->modeloAtributo->editarAtributo($data);
+        $this->load->model('Modeloatributo');
+        $id = $this->Modeloatributo->editarAtributo($data);
 
         if (isset($id)) {
             $this->index();
@@ -70,8 +70,8 @@ class Atributos extends CI_Controller {
 
     public function eliminarAtributo() {
         $atributo= $this->input->post('idatributo');
-        $this->load->model('modeloAtributo');
-        if (empty( $this->modeloAtributo->eliminarAtributo($atributo)))
+        $this->load->model('Modeloatributo');
+        if (empty( $this->Modeloatributo->eliminarAtributo($atributo)))
             echo 'no';
         else
             echo 'ok';
@@ -80,8 +80,8 @@ class Atributos extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosAtributos() {
-        $this->load->model('modeloAtributo');
-        $atributos = $this->modeloAtributo->traerAtributos();
+        $this->load->model('Modeloatributo');
+        $atributos = $this->Modeloatributo->traerAtributos();
         $data['atributos'] = $atributos;
         $this->load->view('atributos/lista', $data);
     }

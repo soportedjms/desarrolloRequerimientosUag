@@ -23,18 +23,18 @@ class Inicial extends CI_Controller {
     }
 
     public function cargarInicial() {
-        $this->load->model('modeloArtefacto');
-        $artefactos = $this->modeloArtefacto->get_artefactosPantallaInicial();
-        $this->load->model('modeloPeticion');
-        $peticiones = $this->modeloPeticion->get_peticionesPantallaInicial();
-        $this->load->model('modeloRequerimiento');
-        $requerimientos = $this->modeloRequerimiento->get_requerimientosPantallaInicial();
-        $this->load->model('modeloMetricasGenerales');
-        $totalReqAsignados= $this->modeloMetricasGenerales->get_totalRequerimientosAsignados();
-        $totalTerm=$this->modeloMetricasGenerales->get_totalRequerimientosAsignadosTerminados();
-        $reqPeticion= $this->modeloMetricasGenerales->get_totalPeticionAsignada();
-        $petReq=$this->modeloMetricasGenerales->get_peticionesActivas();
-        $actividades = $this->modeloMetricasGenerales->get_cambiosPorActividad();
+        $this->load->model('Modeloartefacto');
+        $artefactos = $this->Modeloartefacto->get_artefactosPantallaInicial();
+        $this->load->model('Modelopeticion');
+        $peticiones = $this->Modelopeticion->get_peticionesPantallaInicial();
+        $this->load->model('Modelorequerimiento');
+        $requerimientos = $this->Modelorequerimiento->get_requerimientosPantallaInicial();
+        $this->load->model('Modelometricasgenerales');
+        $totalReqAsignados= $this->Modelometricasgenerales->get_totalRequerimientosAsignados();
+        $totalTerm=$this->Modelometricasgenerales->get_totalRequerimientosAsignadosTerminados();
+        $reqPeticion= $this->Modelometricasgenerales->get_totalPeticionAsignada();
+        $petReq=$this->Modelometricasgenerales->get_peticionesActivas();
+        $actividades = $this->Modelometricasgenerales->get_cambiosPorActividad();
         $totalActividades=0;
         foreach ($actividades as $val) {
             $totalActividades = $totalActividades + $val["cambios"];

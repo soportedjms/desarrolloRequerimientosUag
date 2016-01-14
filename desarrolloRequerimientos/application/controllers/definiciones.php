@@ -33,12 +33,12 @@ class Definiciones extends CI_Controller {
 
     public function validaGuardar() {
        
-        $this->load->model('modeloDefinicion');
+        $this->load->model('Modelodefinicion');
         $id=0;
         if (!empty($_POST['idDefinicion']))
             $id=$_POST['idDefinicion'];
          
-        $definicion = $this->modeloDefinicion->validaPalabra($_POST['palabra'], $_POST['idGlosario'], $id);
+        $definicion = $this->Modelodefinicion->validaPalabra($_POST['palabra'], $_POST['idGlosario'], $id);
        
 //        //si ya existe la definicion preguntar 
         if (!empty($definicion)) {
@@ -61,9 +61,9 @@ class Definiciones extends CI_Controller {
         $data['definicion'] = $_POST['definicion'];
         $data['activo'] = 1;
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloDefinicion');
+        $this->load->model('Modelodefinicion');
         
-        if (empty($this->modeloDefinicion->insertarDefinicion($data))) {
+        if (empty($this->Modelodefinicion->insertarDefinicion($data))) {
             echo "No se pudo insertar el registro.";
         } else {
             echo "";
@@ -71,16 +71,16 @@ class Definiciones extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloDefinicion');
-        $definicion = $this->modeloDefinicion->get_definicion($id);
+        $this->load->model('Modelodefinicion');
+        $definicion = $this->Modelodefinicion->get_definicion($id);
         $data = array("definicion" => $definicion);
         $this->load->view('definiciones/editar', $data);
     }
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosDefiniciones($palabra, $glosario) {
-        $this->load->model('modeloDefinicion');
-        $definiciones = $this->modeloDefinicion->get_definiciones($palabra, $glosario);
+        $this->load->model('Modelodefinicion');
+        $definiciones = $this->Modelodefinicion->get_definiciones($palabra, $glosario);
         $data['definiciones'] = $definiciones;
         $this->load->view('definiciones/lista', $data);
     }

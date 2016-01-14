@@ -31,8 +31,8 @@ class Artefactos extends CI_Controller {
         $data['idEstatus'] = $_POST['estatus'];
         $data['idProyecto'] = $_POST['idProyecto'];
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloArtefacto');
-        if (empty($this->modeloArtefacto->insertarArtefacto($data))) {
+        $this->load->model('Modeloartefacto');
+        if (empty($this->Modeloartefacto->insertarArtefacto($data))) {
             $error_msg = "No se pudo insertar el registro.";
             $data = array("mensaje" => $error_msg);
             $this->load->view('artefactos/nuevo', $data);
@@ -42,8 +42,8 @@ class Artefactos extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloArtefacto');
-        $artefacto = $this->modeloArtefacto->get_artefacto($id);
+        $this->load->model('Modeloartefacto');
+        $artefacto = $this->Modeloartefacto->get_artefacto($id);
         $data = array("artefacto" => $artefacto);
         $this->load->view('artefactos/editar', $data);
     }
@@ -57,8 +57,8 @@ class Artefactos extends CI_Controller {
         $data = array("artefacto" => $artefacto);
 
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloArtefacto');
-        if (empty($this->modeloArtefacto->editarArtefacto($data))) {
+        $this->load->model('Modeloartefacto');
+        if (empty($this->Modeloartefacto->editarArtefacto($data))) {
             $error_msg = "No se pudo editar el registro.";
             $data = array("mensaje" => $error_msg, "artefacto" => $artefacto);
             $this->load->view('artefactos/editar', $data);
@@ -69,12 +69,12 @@ class Artefactos extends CI_Controller {
 
     public function eliminarArtefacto() {
         $artefacto = $this->input->post('idartefacto');
-        $this->load->model('modeloArtefacto');
-        $existe = $this->modeloArtefacto->validarAsignacion($artefacto);
+        $this->load->model('Modeloartefacto');
+        $existe = $this->Modeloartefacto->validarAsignacion($artefacto);
         if (!empty($existe)) {
             echo 'asignado';
         } else {
-            $val = $this->modeloArtefacto->eliminarArtefacto($artefacto);
+            $val = $this->Modeloartefacto->eliminarArtefacto($artefacto);
             if (empty($val))
                 echo 'no';
             else
@@ -86,8 +86,8 @@ class Artefactos extends CI_Controller {
         $proyecto = $this->input->post('idproyecto');
         $artefactos = $this->input->post('artefactos');
         $incluirArtefactos=$this->input->post('incluirArtefactos');
-        $this->load->model('modeloArtefacto');
-        $artefactos = $this->modeloArtefacto->get_artefactosProyecto($proyecto, $artefactos,$incluirArtefactos);
+        $this->load->model('Modeloartefacto');
+        $artefactos = $this->Modeloartefacto->get_artefactosProyecto($proyecto, $artefactos,$incluirArtefactos);
         if (!empty($artefactos))
             echo ( json_encode($artefactos) );
         else
@@ -96,16 +96,16 @@ class Artefactos extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosArtefactos() {
-        $this->load->model('modeloArtefacto');
-        $artefactos = $this->modeloArtefacto->get_artefactos();
+        $this->load->model('Modeloartefacto');
+        $artefactos = $this->Modeloartefacto->get_artefactos();
         $data['artefactos'] = $artefactos;
         $this->load->view('artefactos/lista', $data);
     }
 
     ///////Funciones y acciones para los archivos//////////////////
     public function cargarArchivos($id) {
-        $this->load->model('modeloArtefacto');
-        $archivos = $this->modeloArtefacto->get_archivos($id);
+        $this->load->model('Modeloartefacto');
+        $archivos = $this->Modeloartefacto->get_archivos($id);
         $data = array("archivos" => $archivos, "idArtefacto" => $id);
         $this->load->view('artefactos/archivos', $data);
     }
@@ -113,9 +113,9 @@ class Artefactos extends CI_Controller {
     public function nuevoArchivo() {
         try {
             $idArtefacto = $_POST['idArtefacto'];
-            $this->load->model('modeloArtefacto');
-            $resultado = $this->modeloArtefacto->do_upload($idArtefacto);
-            $archivos = $this->modeloArtefacto->get_archivos($idArtefacto);
+            $this->load->model('Modeloartefacto');
+            $resultado = $this->Modeloartefacto->do_upload($idArtefacto);
+            $archivos = $this->Modeloartefacto->get_archivos($idArtefacto);
             $data = array("archivos" => $archivos, "idArtefacto" => $idArtefacto,
                 "mensaje" => $resultado["mensaje"]);
             if ($resultado["status"] == true)
@@ -130,8 +130,8 @@ class Artefactos extends CI_Controller {
 
     public function eliminarArchivo() {
         $archivo = $this->input->post('idarchivo');
-        $this->load->model('modeloArtefacto');
-        $val = $this->modeloArtefacto->eliminarArchivo($archivo);
+        $this->load->model('Modeloartefacto');
+        $val = $this->Modeloartefacto->eliminarArchivo($archivo);
         echo $val;
     }
 

@@ -38,8 +38,8 @@ class Glosarios extends CI_Controller {
             $this->load->view('glosarios/nuevo', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloGlosario');
-            if (empty($this->modeloGlosario->insertarGlosario($data))) {
+            $this->load->model('Modeloglosario');
+            if (empty($this->Modeloglosario->insertarGlosario($data))) {
                 $error_msg = "No se pudo insertar el registro.";
                 $data = array("mensaje" => $error_msg);
                 $this->load->view('glosarios/nuevo', $data);
@@ -50,8 +50,8 @@ class Glosarios extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloGlosario');
-        $glosario = $this->modeloGlosario->get_glosario($id);
+        $this->load->model('Modeloglosario');
+        $glosario = $this->Modeloglosario->get_glosario($id);
         $data = array("glosario" => $glosario);
         $this->load->view('glosarios/editar', $data);
     }
@@ -70,8 +70,8 @@ class Glosarios extends CI_Controller {
             $this->load->view('glosarios/editar', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloGlosario');
-            if (empty($this->modeloGlosario->editarGlosario($data))) {
+            $this->load->model('Modeloglosario');
+            if (empty($this->Modeloglosario->editarGlosario($data))) {
                 $error_msg = "No se pudo editar el registro.";
                 $data = array("mensaje" => $error_msg, "glosario" => $glosario);
                 $this->load->view('glosarios/editar', $data);
@@ -83,15 +83,15 @@ class Glosarios extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosGlosarios() {
-        $this->load->model('modeloGlosario');
-        $glosarios = $this->modeloGlosario->get_glosarios();
+        $this->load->model('Modeloglosario');
+        $glosarios = $this->Modeloglosario->get_glosarios();
         $data['glosarios'] = $glosarios;
         $this->load->view('glosarios/lista', $data);
     }
 
     function validaGuardar($proyecto,$glosario) {
-       $this->load->model('modeloGlosario');
-        $glosario = $this->modeloGlosario->validaGlosario($proyecto, $glosario);
+       $this->load->model('Modeloglosario');
+        $glosario = $this->Modeloglosario->validaGlosario($proyecto, $glosario);
 
         $error_msg = "";
         if (!empty($glosario)) {

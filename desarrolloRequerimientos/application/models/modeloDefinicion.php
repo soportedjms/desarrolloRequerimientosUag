@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class ModeloDefinicion extends CI_Model {
+class Modelodefinicion extends CI_Model {
 
     public function __construct() {
         // Call the Model constructor
@@ -128,8 +128,8 @@ class ModeloDefinicion extends CI_Model {
                 "idUsuario" => $this->session->userdata('idUsuario'),
                 "idRol" => $this->session->userdata('idRol'),
                 "nuevo" => $data['idDefinicion']);
-            $this->load->model('modeloHistorial');
-            $this->modeloHistorial->insertarCambioGlosario($log_data);
+            $this->load->model('Modelohistorial');
+            $this->Modelohistorial->insertarCambioGlosario($log_data);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 return false;

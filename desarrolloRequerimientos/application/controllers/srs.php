@@ -35,8 +35,8 @@ class SRS extends CI_Controller {
             "alcance" => $_POST['alcance'], "objetivo" => $_POST['objetivo'], "descripcion" => $_POST['descripcion']);
         $proyecto = $_POST['idProyecto'];
         //Traer linea base para el proyecto seleccionado, si no existe una aprobda, mandar mensaje de error
-        $this->load->model('modeloLineaBase');
-        $lineBase = $this->modeloLineaBase->get_ultimaLineaBaseAprobada($proyecto);
+        $this->load->model('Modelolineabase');
+        $lineBase = $this->Modelolineabase->get_ultimaLineaBaseAprobada($proyecto);
         if (empty($lineBase)) {
             $error_msg = "No existe línea de base aprobada para el proyecto seleccionado.";
             $data = array("mensaje" => $error_msg, "datos" => $datos);
@@ -47,8 +47,8 @@ class SRS extends CI_Controller {
             $datos["fechaCreacion"] = date('Y-m-d H:i:s');
             $datos["usuarioCreacion"] = $this->session->userdata('idUsuario');
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloSRS');
-            if (empty($this->modeloSRS->generarSRS($datos))) {
+            $this->load->model('Modelosrs');
+            if (empty($this->Modelosrs->generarSRS($datos))) {
                 $error_msg = "No se pudo generar la línea base.";
                 $data = array("mensaje" => $error_msg, "datos" => $datos);
                 $this->load->view('srs/nuevo', $data);
@@ -59,8 +59,8 @@ class SRS extends CI_Controller {
     }
 
     public function editar($id, $proyecto) {
-        $this->load->model('modeloLineaBase');
-        $lineaBase = $this->modeloLineaBase->get_LineasBase($proyecto, $id);
+        $this->load->model('Modelolineabase');
+        $lineaBase = $this->Modelolineabase->get_LineasBase($proyecto, $id);
 
         $data = array("datos" => $lineaBase);
         $this->load->view('lineasBase/editar', $data);
@@ -73,8 +73,8 @@ class SRS extends CI_Controller {
         $datos = array("idProyecto" => $_POST['idProyecto'], "nombre" => $_POST['nombre'], "descripcion" => $_POST['descripcion'],
             "estatus" => $_POST['estatus'], "idLineaBase" => $_POST['idLineaBase'], "estaAprobada" => $estaAprobada);
         //Editar
-        $this->load->model('modeloLineaBase');
-        if (empty($this->modeloLineaBase->editarLineaBase($datos))) {
+        $this->load->model('Modelolineabase');
+        if (empty($this->Modelolineabase->editarLineaBase($datos))) {
             $error_msg = "No se pudo actualizar la línea base.";
             $data = array("mensaje" => $error_msg, "datos" => $datos);
             $this->load->view('lineasBase/editar', $data);
@@ -84,30 +84,30 @@ class SRS extends CI_Controller {
     }
 
     public function detalle($idsrs, $linea, $proyecto) {
-        $this->load->model('modeloSRS');
-        $srs = $this->modeloSRS->get_SRS($proyecto, $linea, $idsrs);
-        $peticiones = $this->modeloSRS->getSRSPeticiones($proyecto, $linea, $idsrs); //peticiones asignadas a los requisitos de la linea base
+        $this->load->model('Modelosrs');
+        $srs = $this->Modelosrs->get_SRS($proyecto, $linea, $idsrs);
+        $peticiones = $this->Modelosrs->getSRSPeticiones($proyecto, $linea, $idsrs); //peticiones asignadas a los requisitos de la linea base
 //        var_dump($peticiones);
 //        return;
-        $artefactos = $this->modeloSRS->getSRSArtefactos($proyecto, $linea, $idsrs); //artefactos asignados a los requisitos de la linea base
-        $this->load->model('modeloDefinicion');
-        $definiciones = $this->modeloDefinicion->get_definicionesLineaBase($proyecto, $linea);
-        $this->load->model('modeloRequerimiento');
-        $requerimientos = $this->modeloRequerimiento->get_requerimientosLineaBase($proyecto, $linea);
+        $artefactos = $this->Modelosrs->getSRSArtefactos($proyecto, $linea, $idsrs); //artefactos asignados a los requisitos de la linea base
+        $this->load->model('Modelodefinicion');
+        $definiciones = $this->Modelodefinicion->get_definicionesLineaBase($proyecto, $linea);
+        $this->load->model('Modelorequerimiento');
+        $requerimientos = $this->Modelorequerimiento->get_requerimientosLineaBase($proyecto, $linea);
         $data = array("datos" => $srs, "definiciones" => $definiciones, "requerimientos" => $requerimientos,
             "artefactos" => $artefactos, "peticiones" => $peticiones);
         $this->load->view('srs/detalle', $data);
     }
 
     public function exportar($idsrs, $proyecto, $linea) {
-        $this->load->model('modeloSRS');
-        $srs = $this->modeloSRS->get_SRS($proyecto, $linea, $idsrs);
-        $peticiones = $this->modeloSRS->getSRSPeticiones($proyecto, $linea, $idsrs); //peticiones asignadas a los requisitos de la linea base
-        $artefactos = $this->modeloSRS->getSRSArtefactos($proyecto, $linea, $idsrs); //artefactos asignados a los requisitos de la linea base
-        $this->load->model('modeloDefinicion');
-        $definiciones = $this->modeloDefinicion->get_definicionesLineaBase($proyecto, $linea);
-        $this->load->model('modeloRequerimiento');
-        $requerimientos = $this->modeloRequerimiento->get_requerimientosLineaBase($proyecto, $linea);
+        $this->load->model('Modelosrs');
+        $srs = $this->Modelosrs->get_SRS($proyecto, $linea, $idsrs);
+        $peticiones = $this->Modelosrs->getSRSPeticiones($proyecto, $linea, $idsrs); //peticiones asignadas a los requisitos de la linea base
+        $artefactos = $this->Modelosrs->getSRSArtefactos($proyecto, $linea, $idsrs); //artefactos asignados a los requisitos de la linea base
+        $this->load->model('Modelodefinicion');
+        $definiciones = $this->Modelodefinicion->get_definicionesLineaBase($proyecto, $linea);
+        $this->load->model('Modelorequerimiento');
+        $requerimientos = $this->Modelorequerimiento->get_requerimientosLineaBase($proyecto, $linea);
 
 
         $this->load->library('Pdf');
@@ -263,8 +263,8 @@ class SRS extends CI_Controller {
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosSRS($proyecto) {
         $consulta = array("idProyecto" => $proyecto);
-        $this->load->model('modeloSRS');
-        $srs = $this->modeloSRS->get_SRS($proyecto, '', '');
+        $this->load->model('Modelosrs');
+        $srs = $this->Modelosrs->get_SRS($proyecto, '', '');
         $data = array("srs" => $srs, "consulta" => $consulta);
         $this->load->view('srs/lista', $data);
     }

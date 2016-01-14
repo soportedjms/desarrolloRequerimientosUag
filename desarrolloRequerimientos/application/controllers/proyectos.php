@@ -44,8 +44,8 @@ class Proyectos extends CI_Controller {
             $this->load->view('proyectos/nuevo', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloProyecto');
-            if (empty($this->modeloProyecto->insertarProyecto($data))) {
+            $this->load->model('Modeloproyecto');
+            if (empty($this->Modeloproyecto->insertarProyecto($data))) {
                 $error_msg = "No se pudo insertar el registro.";
                 $data = array("mensaje" => $error_msg);
                 $this->load->view('proyectos/nuevo', $data);
@@ -56,8 +56,8 @@ class Proyectos extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloProyecto');
-        $proyecto = $this->modeloProyecto->get_proyecto($id);
+        $this->load->model('Modeloproyecto');
+        $proyecto = $this->Modeloproyecto->get_proyecto($id);
         $data = array("proyecto" => $proyecto);
         $this->load->view('proyectos/editar', $data);
     }
@@ -81,8 +81,8 @@ class Proyectos extends CI_Controller {
             $this->load->view('proyectos/editar', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloProyecto');
-            if (empty($this->modeloProyecto->editarProyecto($data))) {
+            $this->load->model('Modeloproyecto');
+            if (empty($this->Modeloproyecto->editarProyecto($data))) {
                 $error_msg = "No se pudo editar el registro.";
                 $data = array("mensaje" => $error_msg, "proyecto" => $proyecto);
                 $this->load->view('proyectos/editar', $data);
@@ -94,8 +94,8 @@ class Proyectos extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosProyectos() {
-        $this->load->model('modeloProyecto');
-        $proyecto = $this->modeloProyecto->get_proyectos();
+        $this->load->model('Modeloproyecto');
+        $proyecto = $this->Modeloproyecto->get_proyectos();
         $data['proyectos'] = $proyecto;
         $this->load->view('proyectos/lista', $data);
     }

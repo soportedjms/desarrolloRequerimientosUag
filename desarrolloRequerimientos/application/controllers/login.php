@@ -7,7 +7,7 @@ class Login extends CI_Controller {
 
     public function __constructor() {
         parent::__constructor();
-        $this->load->model('modeloUsuario');
+        $this->load->model('Modelousuario');
     }
 
     // this is the home page
@@ -22,8 +22,8 @@ class Login extends CI_Controller {
    public function validaAcceso() {
         $error_msg = "";
         if (!empty($_POST["password"])) {
-            $this->load->model('modeloUsuario');
-            $user = $this->modeloUsuario->validaUsuarioSesion($_POST["usuario"],$_POST["password"],$_POST["rol"]);
+            $this->load->model('Modelousuario');
+            $user = $this->Modelousuario->validaUsuarioSesion($_POST["usuario"],$_POST["password"],$_POST["rol"]);
             if (!empty($user))
             {
                 $user_data = array(
@@ -42,8 +42,8 @@ class Login extends CI_Controller {
             else
             {
                 $error_msg = "Proporcione usuario, rol y contraseña correctos.";
-                $this->load->model('modeloRol');
-                $roles= $this->modeloRol->traerRoles();
+                $this->load->model('Modelorol');
+                $roles= $this->Modelorol->traerRoles();
                 $data = array("mensaje" => $error_msg, "roles"=>$roles);
                 $this->load->view("login", $data);
             }

@@ -35,10 +35,10 @@ class Requerimientos extends CI_Controller {
     }
 
     public function nuevo() {
-        $this->load->model('modeloAtributo');
-        $atributos = $this->modeloAtributo->traerAtributos();
-        $this->load->model('modeloActividad');
-        $actividades = $this->modeloActividad->get_actividadesFiltro(1, 1, 0);
+        $this->load->model('Modeloatributo');
+        $atributos = $this->Modeloatributo->traerAtributos();
+        $this->load->model('Modeloactividad');
+        $actividades = $this->Modeloactividad->get_actividadesFiltro(1, 1, 0);
         $data = array("atributos" => $atributos, "actividades" => $actividades);
         $this->load->view('requerimientos/nuevo', $data);
     }
@@ -46,16 +46,16 @@ class Requerimientos extends CI_Controller {
     public function editar($idReq, $idReqUsuario, $opcion) {
         //Opcion E=Editar D=Detalle (Mandar disabled)
         //Traer información del requerimiento
-        $this->load->model('modeloRequerimiento');
-        $requerimiento = $this->modeloRequerimiento->get_requerimiento($idReq, $idReqUsuario);
+        $this->load->model('Modelorequerimiento');
+        $requerimiento = $this->Modelorequerimiento->get_requerimiento($idReq, $idReqUsuario);
         //Traer información de los atributos
-        $atributos = $this->modeloRequerimiento->get_requerimientoAtributos($idReq, $idReqUsuario);
+        $atributos = $this->Modelorequerimiento->get_requerimientoAtributos($idReq, $idReqUsuario);
         //Traer información de las peticiones
-        $peticiones = $this->modeloRequerimiento->get_requerimientoPeticiones($idReq, $idReqUsuario);
+        $peticiones = $this->Modelorequerimiento->get_requerimientoPeticiones($idReq, $idReqUsuario);
         ////Traer información de los artefactos
-        $artefactos = $this->modeloRequerimiento->get_requerimientoArtefactos($idReq, $idReqUsuario);
+        $artefactos = $this->Modelorequerimiento->get_requerimientoArtefactos($idReq, $idReqUsuario);
         //Traer información de las actividades
-        $actividades = $this->modeloRequerimiento->get_requerimientoActividades($idReq, $idReqUsuario);
+        $actividades = $this->Modelorequerimiento->get_requerimientoActividades($idReq, $idReqUsuario);
         //Enviar todo al formulario
         $modificar = "";
         $detalle = "";
@@ -94,8 +94,8 @@ class Requerimientos extends CI_Controller {
         $idRequerimiento = 0;
         if ($nuevo != 1)
             $idRequerimiento = $req['idRequerimiento'];
-        $this->load->model('modeloRequerimiento');
-        $resultado = $this->modeloRequerimiento->guardarRequerimiento($idRequerimiento, $req['idUsuario'], $requerimiento, $req, $nuevo);
+        $this->load->model('Modelorequerimiento');
+        $resultado = $this->Modelorequerimiento->guardarRequerimiento($idRequerimiento, $req['idUsuario'], $requerimiento, $req, $nuevo);
         if (empty($resultado)) {
             echo "No";
         } else {
@@ -106,13 +106,13 @@ class Requerimientos extends CI_Controller {
     public function guardarCambioEstatus() {
         $json = $this->input->post('json');
         $req = json_decode($json, true);      
-        $this->load->model('modeloRequerimiento');
+        $this->load->model('Modelorequerimiento');
         //Extraer información de los requisitos cambiados
         foreach ($req['cambiados'] as $val) {
             //Validar que si es terminado todas las actividades y los casos de prueba estén en terminados
             if ($val["idEstatus"]==8)
             {
-                if (!empty($this->modeloRequerimiento->estatusActividadesCasosPrueba($val["idRequerimientoUsuario"])))
+                if (!empty($this->Modelorequerimiento->estatusActividadesCasosPrueba($val["idRequerimientoUsuario"])))
                 {
                     echo 'No se puede cambiar a estatus "Terminado" el requisito "' . $val["idRequerimientoUsuario"] 
                             . '" ya que tiene casos de pruebas o actividades pendientes de terminar.';
@@ -121,7 +121,7 @@ class Requerimientos extends CI_Controller {
             }
         }
 
-        $resultado = $this->modeloRequerimiento->guardarCambioEstatus($req['cambiados']);
+        $resultado = $this->Modelorequerimiento->guardarCambioEstatus($req['cambiados']);
 //        var_dump( $resultado);
 //        return;
         if (empty($resultado)) {
@@ -139,8 +139,8 @@ class Requerimientos extends CI_Controller {
             echo "";
         } else {
             //Validar que el id de usuario no exista
-            $this->load->model('modeloRequerimiento');
-            $requerimiento = $this->modeloRequerimiento->validaRequerimiento($proyecto, $idUsuario);
+            $this->load->model('Modelorequerimiento');
+            $requerimiento = $this->Modelorequerimiento->validaRequerimiento($proyecto, $idUsuario);
             $error_msg = "";
             if (!empty($requerimiento)) {
                 $error_msg = "Ya existe el id de usuario proporcionado.";
@@ -154,8 +154,8 @@ class Requerimientos extends CI_Controller {
         $consulta = array("idProyecto" => $proyecto, 'nombre' => $nombre,
             "idRequerimiento" => $idUsuario, "idEstatus" => $estatus, "idTipo" => $tipo,
             "idPrioridad" => $prioridad, "historial" => $historial);
-        $this->load->model('modeloRequerimiento');
-        $requerimientos = $this->modeloRequerimiento->get_requerimientos($proyecto, $nombre, $idUsuario, $estatus, $tipo, $prioridad, $historial);
+        $this->load->model('Modelorequerimiento');
+        $requerimientos = $this->Modelorequerimiento->get_requerimientos($proyecto, $nombre, $idUsuario, $estatus, $tipo, $prioridad, $historial);
 
         $data = array("consulta" => $consulta, "requerimientos" => $requerimientos);
         $this->load->view('requerimientos/lista', $data);

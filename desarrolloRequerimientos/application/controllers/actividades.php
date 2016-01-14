@@ -40,8 +40,8 @@ class Actividades extends CI_Controller {
         $data['idProyecto'] = $_POST['idProyecto'];
 
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloActividad');
-        if (empty($this->modeloActividad->insertarActividad($data))) {
+        $this->load->model('Modeloactividad');
+        if (empty($this->Modeloactividad->insertarActividad($data))) {
             $error_msg = "No se pudo insertar el registro.";
             $data = array("actividad" => $error_msg);
             $this->load->view('actividades/nuevo', $data);
@@ -51,8 +51,8 @@ class Actividades extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloActividad');
-        $actividad = $this->modeloActividad->get_actividad($id);
+        $this->load->model('Modeloactividad');
+        $actividad = $this->Modeloactividad->get_actividad($id);
         $data = array("actividad" => $actividad);
         $this->load->view('actividades/editar', $data);
     }
@@ -70,8 +70,8 @@ class Actividades extends CI_Controller {
             'idProyecto' => $_POST['idProyecto']);
         $data = array("actividad" => $actividad);
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloActividad');
-        if (empty($this->modeloActividad->editarActividad($data))) {
+        $this->load->model('Modeloactividad');
+        if (empty($this->Modeloactividad->editarActividad($data))) {
             $error_msg = "No se pudo editar el registro.";
             $data = array("mensaje" => $error_msg, "actividad" => $actividad);
             $this->load->view('actividades/editar', $data);
@@ -84,8 +84,8 @@ class Actividades extends CI_Controller {
         $proyecto = $this->input->post('idproyecto');
         $actividades = $this->input->post('actividades');
         $incluirActividades = $this->input->post('incluirActividades');
-        $this->load->model('modeloActividad');
-        $act = $this->modeloActividad->get_actividadesProyecto($proyecto, $actividades, $incluirActividades);
+        $this->load->model('Modeloactividad');
+        $act = $this->Modeloactividad->get_actividadesProyecto($proyecto, $actividades, $incluirActividades);
         if (!empty($act)) {
             $var = json_encode($act);
             echo ($var);
@@ -97,8 +97,8 @@ class Actividades extends CI_Controller {
         $proyecto = $this->input->post('idproyecto');
         $default = $this->input->post('default');
         $modificacion = $this->input->post('modificacion');
-        $this->load->model('modeloActividad');
-        $act = $this->modeloActividad->get_actividadesFiltro($proyecto,$default,$modificacion);
+        $this->load->model('Modeloactividad');
+        $act = $this->Modeloactividad->get_actividadesFiltro($proyecto,$default,$modificacion);
         if (!empty($act)) {
             $var = json_encode($act);
             echo ($var);
@@ -108,8 +108,8 @@ class Actividades extends CI_Controller {
 
     public function eliminarActividad() {
         $actividad = $this->input->post('idactividad');
-        $this->load->model('modeloActividad');
-        $val = $this->modeloActividad->eliminarActividad($actividad);
+        $this->load->model('Modeloactividad');
+        $val = $this->Modeloactividad->eliminarActividad($actividad);
         if (empty($val))
             echo 'no';
         else
@@ -118,8 +118,8 @@ class Actividades extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosActividades() {
-        $this->load->model('modeloActividad');
-        $actividad = $this->modeloActividad->get_actividades();
+        $this->load->model('Modeloactividad');
+        $actividad = $this->Modeloactividad->get_actividades();
         $data['actividades'] = $actividad;
         $this->load->view('actividades/lista', $data);
     }

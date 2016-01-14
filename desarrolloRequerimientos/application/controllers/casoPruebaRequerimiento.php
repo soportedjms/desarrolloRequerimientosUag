@@ -21,16 +21,16 @@ class casoPruebaRequerimiento extends CI_Controller {
 
     public function traerCasoPruebaRequerimientosInicio($casoPrueba) {
         //traer las opciones junto con las ya asignadas al usuario seleccionado
-        $this->load->model('modeloCasoPruebaRequerimiento');
-        $casoRequerimientos = $this->modeloCasoPruebaRequerimiento->get_casoPruebaRequerimientos($casoPrueba);
+        $this->load->model('Modelocasopruebarequerimiento');
+        $casoRequerimientos = $this->Modelocasopruebarequerimiento->get_casoPruebaRequerimientos($casoPrueba);
         return $casoRequerimientos;
     }
 
     public function traerCasoPruebaRequerimientos() {
         $casoPrueba = $this->input->post('idcasoprueba');
         //traer las opciones junto con las ya asignadas al usuario seleccionado
-        $this->load->model('modeloCasoPruebaRequerimiento');
-        $resultado = $this->modeloCasoPruebaRequerimiento->get_casoPruebaRequerimientos($casoPrueba);
+        $this->load->model('Modelocasopruebarequerimiento');
+        $resultado = $this->Modelocasopruebarequerimiento->get_casoPruebaRequerimientos($casoPrueba);
         echo ( json_encode($resultado) );
     }
 
@@ -51,8 +51,8 @@ class casoPruebaRequerimiento extends CI_Controller {
                     $i = $i + 1;
                 };
             }
-            $this->load->model('modeloCasoPruebaRequerimiento');
-            if (empty($this->modeloCasoPruebaRequerimiento->guardar($casoRequerimiento, $casoPrueba))) {
+            $this->load->model('Modelocasopruebarequerimiento');
+            if (empty($this->Modelocasopruebarequerimiento->guardar($casoRequerimiento, $casoPrueba))) {
                 $error_msg = "No se pudo actualizar el registro.";
                 $data = array("mensaje" => $error_msg);
                 $this->load->view('casoPruebaRequerimiento/lista', $data);

@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class ModeloHistorial extends CI_Model {
+class Modelohistorial extends CI_Model {
 
     public function __construct() {
         // Call the Model constructor

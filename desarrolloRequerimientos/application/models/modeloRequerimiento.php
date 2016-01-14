@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class ModeloRequerimiento extends CI_Model {
+class Modelorequerimiento extends CI_Model {
 
     public function __construct() {
 // Call the Model constructor
@@ -211,7 +211,7 @@ class ModeloRequerimiento extends CI_Model {
             "idUsuario" => $this->session->userdata('idUsuario'),
             "idRol" => $this->session->userdata('idRol'),
             "idActividad" => $idAct);
-        $this->modeloHistorial->insertarCambioRequerimiento($log_data);
+        $this->Modelohistorial->insertarCambioRequerimiento($log_data);
     }
 
     public function validaActividades($idReq, $idUsuario, $actividadesNuevas) {
@@ -222,7 +222,7 @@ class ModeloRequerimiento extends CI_Model {
         if ($actividadesNuevas == "" && empty($actividades)) {
             return;
         }
-        $this->load->model('modeloHistorial');
+        $this->load->model('Modelohistorial');
         //si tenia y se le quitaron
         if (!empty($actividades) && $actividadesNuevas == "") {
             //guardar log de que fueron eliminadas
@@ -270,7 +270,7 @@ class ModeloRequerimiento extends CI_Model {
         try {
             $this->db->trans_begin();
             //Validar si es cancelado, cambiar estatus de actividades
-            $this->load->model('modeloHistorial');
+            $this->load->model('Modelohistorial');
             foreach ($cambiados as $val) {
                 if ($val["idEstatus"] == 2) {
                     //cambiar estatus de las actividades
@@ -309,7 +309,7 @@ class ModeloRequerimiento extends CI_Model {
                     "idUsuario" => $this->session->userdata('idUsuario'),
                     "idRol" => $this->session->userdata('idRol'),
                     "idActividad" => NULL);
-                $this->modeloHistorial->insertarCambioRequerimiento($log_data);
+                $this->Modelohistorial->insertarCambioRequerimiento($log_data);
             }
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -368,8 +368,8 @@ class ModeloRequerimiento extends CI_Model {
                         . "    idRequerimientoUsuario='{$idUsuario}')");
                 //Traer actividades modificacionDefault=1 y verificar cual no esta agregada para añadirla,
                 //y cambiar estatus de todas
-                $this->load->model('modeloActividad');
-                $actModificacion = $this->modeloActividad->get_actividadesFiltro($requerimiento["idProyecto"], 0, 1);
+                $this->load->model('Modeloactividad');
+                $actModificacion = $this->Modeloactividad->get_actividadesFiltro($requerimiento["idProyecto"], 0, 1);
                 if (!empty($actModificacion)) {
                     foreach ($actModificacion as $val) {
                         $encontro = 0;
@@ -459,8 +459,8 @@ class ModeloRequerimiento extends CI_Model {
                 "idUsuario" => $this->session->userdata('idUsuario'),
                 "idRol" => $this->session->userdata('idRol'),
                 "idActividad" => NULL);
-            $this->load->model('modeloHistorial');
-            $this->modeloHistorial->insertarCambioRequerimiento($log_data);
+            $this->load->model('Modelohistorial');
+            $this->Modelohistorial->insertarCambioRequerimiento($log_data);
 
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();

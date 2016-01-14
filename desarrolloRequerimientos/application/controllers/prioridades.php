@@ -34,8 +34,8 @@ class Prioridades extends CI_Controller {
             $this->load->view('prioridades/nuevo', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloPrioridad');
-            if (empty($this->modeloPrioridad->insertarPrioridad($data))) {
+            $this->load->model('Modeloprioridad');
+            if (empty($this->Modeloprioridad->insertarPrioridad($data))) {
                 $error_msg = "No se pudo insertar el registro.";
                 $data = array("mensaje" => $error_msg);
                 $this->load->view('prioridades/nuevo', $data);
@@ -46,8 +46,8 @@ class Prioridades extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloPrioridad');
-        $prioridad = $this->modeloPrioridad->get_prioridad($id);
+        $this->load->model('Modeloprioridad');
+        $prioridad = $this->Modeloprioridad->get_prioridad($id);
         $data = array("prioridad" => $prioridad);
         $this->load->view('prioridades/editar', $data);
     }
@@ -66,8 +66,8 @@ class Prioridades extends CI_Controller {
             $this->load->view('prioridades/editar', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloPrioridad');
-            if (empty($this->modeloPrioridad->editarPrioridad($data))) {
+            $this->load->model('Modeloprioridad');
+            if (empty($this->Modeloprioridad->editarPrioridad($data))) {
                 $error_msg = "No se pudo editar el registro.";
                 $data = array("mensaje" => $error_msg, "prioridad" => $prioridad);
                 $this->load->view('prioridades/editar', $data);
@@ -79,8 +79,8 @@ class Prioridades extends CI_Controller {
 
     public function eliminarPrioridad() {
         $prioridad = $this->input->post('idprioridad');
-        $this->load->model('modeloPrioridad');
-        $val = $this->modeloPrioridad->eliminarPrioridad($prioridad);
+        $this->load->model('Modeloprioridad');
+        $val = $this->Modeloprioridad->eliminarPrioridad($prioridad);
         if (empty($val))
             echo 'no';
         else
@@ -89,8 +89,8 @@ class Prioridades extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosPrioridades() {
-        $this->load->model('modeloPrioridad');
-        $prioridades = $this->modeloPrioridad->get_prioridades();
+        $this->load->model('Modeloprioridad');
+        $prioridades = $this->Modeloprioridad->get_prioridades();
         $data['prioridades'] = $prioridades;
         $this->load->view('prioridades/lista', $data);
     }
@@ -101,8 +101,8 @@ class Prioridades extends CI_Controller {
         if (!is_numeric($orden)) {
             $error_msg = "El orden debe ser número.";
         } else {
-            $this->load->model('modeloPrioridad');
-            $prioridad = $this->modeloPrioridad->validaPrioridad($orden, $id);
+            $this->load->model('Modeloprioridad');
+            $prioridad = $this->Modeloprioridad->validaPrioridad($orden, $id);
             if (!empty($prioridad)) {
                 $error_msg = "Ya existe el orden proporcionado.";
             }

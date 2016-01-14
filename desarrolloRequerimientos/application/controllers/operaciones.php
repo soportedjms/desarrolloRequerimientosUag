@@ -28,8 +28,8 @@ class Operaciones extends CI_Controller {
     public function guardarNuevo() {
         $data['descripcion'] = $_POST['descripcion'];
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloOperacion');
-        if (empty($this->modeloOperacion->insertarOperacion($data))) {
+        $this->load->model('Modelooperacion');
+        if (empty($this->Modelooperacion->insertarOperacion($data))) {
             $error_msg = "No se pudo insertar el registro.";
             $data = array("mensaje" => $error_msg);
             $this->load->view('operaciones/nuevo', $data);
@@ -39,8 +39,8 @@ class Operaciones extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloOperacion');
-        $operacion = $this->modeloOperacion->get_operacion($id);
+        $this->load->model('Modelooperacion');
+        $operacion = $this->Modelooperacion->get_operacion($id);
         $data = array("operacion" => $operacion);
         $this->load->view('operaciones/editar', $data);
     }
@@ -49,8 +49,8 @@ class Operaciones extends CI_Controller {
         $estatus = array("idOperacion" => $_POST['idOperacion'],'descripcion' => $_POST['descripcion'] );
         $data = array("operacion" => $operacion);
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloOperacion');
-        if (empty($this->modeloOperacion->editarOperacion($data))) {
+        $this->load->model('Modelooperacion');
+        if (empty($this->Modelooperacion->editarOperacion($data))) {
             $error_msg = "No se pudo editar el registro.";
             $data = array("mensaje" => $error_msg, "operacion" => $operacion);
             $this->load->view('operaciones/editar', $data);
@@ -61,8 +61,8 @@ class Operaciones extends CI_Controller {
 
     public function eliminarOperacion() {
         $operacion = $this->input->post('idoperacion');
-        $this->load->model('modeloOperacion');
-        $val = $this->modeloOperacion->eliminarOperacion($estatus);
+        $this->load->model('Modelooperacion');
+        $val = $this->Modelooperacion->eliminarOperacion($estatus);
         if (empty($val))
             echo 'no';
         else
@@ -71,8 +71,8 @@ class Operaciones extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosOperaciones() {
-        $this->load->model('modeloOperacion');
-        $operacion = $this->modeloOperacion->get_operaciones();
+        $this->load->model('Modelooperacion');
+        $operacion = $this->Modelooperacion->get_operaciones();
         $data['operaciones'] = $operacion;
         $this->load->view('operaciones/lista', $data);
     }

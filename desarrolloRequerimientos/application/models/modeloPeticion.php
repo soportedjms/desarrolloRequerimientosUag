@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class ModeloPeticion extends CI_Model {
+class Modelopeticion extends CI_Model {
 
     public function __construct() {
         // Call the Model constructor

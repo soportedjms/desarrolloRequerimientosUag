@@ -35,8 +35,8 @@ class Modulos extends CI_Controller {
             $this->load->view('modulos/nuevo', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloModulo');
-            if (empty($this->modeloModulo->insertarModulo($data))) {
+            $this->load->model('Modelomodulo');
+            if (empty($this->Modelomodulo->insertarModulo($data))) {
                 $error_msg = "No se pudo insertar el registro.";
                 $data = array("mensaje" => $error_msg);
                 $this->load->view('modulos/nuevo', $data);
@@ -47,8 +47,8 @@ class Modulos extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloModulo');
-        $modulo = $this->modeloModulo->get_modulo($id);
+        $this->load->model('Modelomodulo');
+        $modulo = $this->Modelomodulo->get_modulo($id);
         $data = array("modulo" => $modulo);
         $this->load->view('modulos/editar', $data);
     }
@@ -68,8 +68,8 @@ class Modulos extends CI_Controller {
             $this->load->view('modulos/editar', $data);
         } else {
             //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-            $this->load->model('modeloModulo');
-            if (empty($this->modeloModulo->editarModulo($data))) {
+            $this->load->model('Modelomodulo');
+            if (empty($this->Modelomodulo->editarModulo($data))) {
                 $error_msg = "No se pudo editar el registro.";
                 $data = array("mensaje" => $error_msg, "modulo" => $modulo);
                 $this->load->view('modulos/editar', $data);
@@ -81,8 +81,8 @@ class Modulos extends CI_Controller {
 
     public function eliminarModulo() {
         $modulo = $this->input->post('idmodulo');
-        $this->load->model('modeloModulo');
-        $val = $this->modeloModulo->eliminarModulo($modulo);
+        $this->load->model('Modelomodulo');
+        $val = $this->Modelomodulo->eliminarModulo($modulo);
         if (empty($val))
             echo 'no';
         else
@@ -91,16 +91,16 @@ class Modulos extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosModulos() {
-        $this->load->model('modeloModulo');
-        $modulos = $this->modeloModulo->get_modulos();
+        $this->load->model('Modelomodulo');
+        $modulos = $this->Modelomodulo->get_modulos();
         $data['modulos'] = $modulos;
         $this->load->view('modulos/lista', $data);
     }
 
     function validaGuardar($descripcion, $id) {
         //Validar que el usuario no exista
-        $this->load->model('modeloModulo');
-        $modulo = $this->modeloModulo->validaModulo($descripcion, $id);
+        $this->load->model('Modelomodulo');
+        $modulo = $this->Modelomodulo->validaModulo($descripcion, $id);
 
         $error_msg = "";
         if (!empty($modulo)) {

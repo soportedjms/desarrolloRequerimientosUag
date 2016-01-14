@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class ModeloUsuario extends CI_Model {
+class Modelousuario extends CI_Model {
 
     public function __construct() {
         // Call the Model constructor

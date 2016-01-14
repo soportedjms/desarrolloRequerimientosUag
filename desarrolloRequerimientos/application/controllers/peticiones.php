@@ -32,8 +32,8 @@ class Peticiones extends CI_Controller {
         $data['idEstatus'] = $_POST['estatus'];
         $data['idProyecto'] = $_POST['idProyecto'];
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloPeticion');
-        if (empty($this->modeloPeticion->insertarPeticion($data))) {
+        $this->load->model('Modelopeticion');
+        if (empty($this->Modelopeticion->insertarPeticion($data))) {
             $error_msg = "No se pudo insertar el registro.";
             $data = array("mensaje" => $error_msg);
             $this->load->view('peticiones/nuevo', $data);
@@ -43,8 +43,8 @@ class Peticiones extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloPeticion');
-        $peticion = $this->modeloPeticion->get_peticion($id);
+        $this->load->model('Modelopeticion');
+        $peticion = $this->Modelopeticion->get_peticion($id);
         $data = array("peticion" => $peticion);
         $this->load->view('peticiones/editar', $data);
     }
@@ -59,8 +59,8 @@ class Peticiones extends CI_Controller {
         $data = array("peticion" => $peticion);
 
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloPeticion');
-        if (empty($this->modeloPeticion->editarPeticion($data))) {
+        $this->load->model('Modelopeticion');
+        if (empty($this->Modelopeticion->editarPeticion($data))) {
             $error_msg = "No se pudo editar el registro.";
             $data = array("mensaje" => $error_msg, "peticion" => $peticion);
             $this->load->view('peticiones/editar', $data);
@@ -71,12 +71,12 @@ class Peticiones extends CI_Controller {
 
     public function eliminarPeticion() {
         $peticion = $this->input->post('idpeticion');
-        $this->load->model('modeloPeticion');
-        $existe = $this->modeloPeticion->validarAsignacion($peticion);
+        $this->load->model('Modelopeticion');
+        $existe = $this->Modelopeticion->validarAsignacion($peticion);
         if (!empty($existe)) {
             echo 'asignado';
         } else {
-            $val = $this->modeloPeticion->eliminarPeticion($peticion);
+            $val = $this->Modelopeticion->eliminarPeticion($peticion);
             if (empty($val))
                 echo 'no';
             else
@@ -88,8 +88,8 @@ class Peticiones extends CI_Controller {
         $proyecto = $this->input->post('idproyecto');
         $peticiones = $this->input->post('peticiones');
         $incluirPeticiones=$this->input->post('incluirPeticiones');
-        $this->load->model('modeloPeticion');
-        $peticiones = $this->modeloPeticion->get_peticionesProyecto($proyecto, $peticiones,$incluirPeticiones);
+        $this->load->model('Modelopeticion');
+        $peticiones = $this->Modelopeticion->get_peticionesProyecto($proyecto, $peticiones,$incluirPeticiones);
         if (!empty($peticiones))
             echo ( json_encode($peticiones) );
         else
@@ -98,8 +98,8 @@ class Peticiones extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosPeticiones() {
-        $this->load->model('modeloPeticion');
-        $peticiones = $this->modeloPeticion->get_peticiones();
+        $this->load->model('Modelopeticion');
+        $peticiones = $this->Modelopeticion->get_peticiones();
         $data['peticiones'] = $peticiones;
         $this->load->view('peticiones/lista', $data);
     }
@@ -113,8 +113,8 @@ class Peticiones extends CI_Controller {
 
     ///////Funciones y acciones para los archivos//////////////////
     public function cargarArchivos($id) {
-        $this->load->model('modeloPeticion');
-        $archivos = $this->modeloPeticion->get_archivos($id);
+        $this->load->model('Modelopeticion');
+        $archivos = $this->Modelopeticion->get_archivos($id);
         $data = array("archivos" => $archivos, "idPeticion" => $id);
         $this->load->view('peticiones/archivos', $data);
     }
@@ -122,9 +122,9 @@ class Peticiones extends CI_Controller {
     public function nuevoArchivo() {
         try {
             $idPeticion = $_POST['idPeticion'];
-            $this->load->model('modeloPeticion');
-            $resultado = $this->modeloPeticion->do_upload($idPeticion);
-            $archivos = $this->modeloPeticion->get_archivos($idPeticion);
+            $this->load->model('Modelopeticion');
+            $resultado = $this->Modelopeticion->do_upload($idPeticion);
+            $archivos = $this->Modelopeticion->get_archivos($idPeticion);
             $data = array("archivos" => $archivos, "idPeticion" => $idPeticion,
                 "mensaje" => $resultado["mensaje"]);
             if ($resultado["status"] == true)
@@ -139,8 +139,8 @@ class Peticiones extends CI_Controller {
 
     public function eliminarArchivo() {
         $archivo = $this->input->post('idarchivo');
-        $this->load->model('modeloPeticion');
-        $val = $this->modeloPeticion->eliminarArchivo($archivo);
+        $this->load->model('Modelopeticion');
+        $val = $this->Modelopeticion->eliminarArchivo($archivo);
         echo $val;
     }
 

@@ -29,8 +29,8 @@ class Roles extends CI_Controller {
         $data['descripcion'] = $_POST['descripcion'];
 
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloRol');
-        $id = $this->modeloRol->insertarRol($data);
+        $this->load->model('Modelorol');
+        $id = $this->Modelorol->insertarRol($data);
 
         if (isset($id)) {
             $this->index();
@@ -42,8 +42,8 @@ class Roles extends CI_Controller {
     }
 
     public function editar($id) {
-        $this->load->model('modeloRol');
-        $roles = $this->modeloRol->get_rol($id);
+        $this->load->model('Modelorol');
+        $roles = $this->Modelorol->get_rol($id);
         $data = array("roles" => $roles);
         $this->load->view('roles/editar', $data);
     }
@@ -53,8 +53,8 @@ class Roles extends CI_Controller {
         $data = array("roles" => $roles);
 
         //llamamos al modelo, concretamente a la función insert() para que nos haga el insert en la base de datos.
-        $this->load->model('modeloRol');
-        $id = $this->modeloRol->editarRol($data);
+        $this->load->model('Modelorol');
+        $id = $this->Modelorol->editarRol($data);
 
         if (isset($id)) {
             $this->index();
@@ -68,8 +68,8 @@ class Roles extends CI_Controller {
 
     public function eliminarRol() {
         $rol= $this->input->post('idrol');
-        $this->load->model('modeloRol');
-        if (empty( $this->modeloRol->eliminarRol($rol)))
+        $this->load->model('Modelorol');
+        if (empty( $this->Modelorol->eliminarRol($rol)))
             echo 'no';
         else
             echo 'ok';
@@ -78,8 +78,8 @@ class Roles extends CI_Controller {
 
     ////////////////////////////////////////////FUNCIONES///////////////////////////
     function todosRoles() {
-        $this->load->model('modeloRol');
-        $roles = $this->modeloRol->traerRoles();
+        $this->load->model('Modelorol');
+        $roles = $this->Modelorol->traerRoles();
         $data['roles'] = $roles;
         $this->load->view('roles/lista', $data);
     }

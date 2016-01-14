@@ -21,16 +21,16 @@ class RolOpciones extends CI_Controller {
 
     public function traerOpcionesRolInicio($rol) {
         //traer las opciones junto con las ya asignadas al usuario seleccionado
-        $this->load->model('modeloRolOpcion');
-        $rolOpciones = $this->modeloRolOpcion->get_rol_opciones($rol);
+        $this->load->model('Modelorolopcion');
+        $rolOpciones = $this->Modelorolopcion->get_rol_opciones($rol);
         return $rolOpciones;
     }
 
     public function traerOpcionesRol() {
         $rol = $this->input->post('idrol');
         //traer las opciones junto con las ya asignadas al usuario seleccionado
-        $this->load->model('modeloRolOpcion');
-        $rolOpciones = $this->modeloRolOpcion->get_rol_opciones($rol);
+        $this->load->model('Modelorolopcion');
+        $rolOpciones = $this->Modelorolopcion->get_rol_opciones($rol);
         echo ( json_encode($rolOpciones) );
     }
 
@@ -48,10 +48,10 @@ class RolOpciones extends CI_Controller {
                         'idOpcion' => $opcion);
                 };
             }
-            $this->load->model('modeloRolOpcion');
+            $this->load->model('Modelorolopcion');
 
 
-            if (empty($this->modeloRolOpcion->guardar($rolOpciones, $rol))) {
+            if (empty($this->Modelorolopcion->guardar($rolOpciones, $rol))) {
                 $error_msg = "No se pudo actualizar el registro.";
                 $data = array("mensaje" => $error_msg);
                 $this->load->view('rolOpciones/lista', $data);
